@@ -1,17 +1,20 @@
-<?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="car_bot">
 
     <!-- Robot Material Colors -->
-    <material name="blue">
-        <color rgba="0.2 0.2 1 1"/>
+    <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+
+    <material name="orange">
+        <color rgba="1 0.5 0 1"/>
     </material>
 
     <material name="black">
-        <color rgba="0 0 0 1"/>
+        <color rgba="0.1 0.1 0.1 1"/>
     </material>
-
-    <material name="white">
-        <color rgba="1 1 1 1"/>
+    
+    <material name="blue_glow">
+        <color rgba="0.0 0.8 1.0 1"/>
     </material>
 
     <!-- Base Link (Chassis) -->
@@ -22,49 +25,74 @@
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link"/>
         <child link="chassis"/>
-        <origin xyz="0 0 0.1"/>
+        <origin xyz="0 0 0.28"/>
     </joint>
 
     <link name="chassis">
+        <!-- Main Sphere Body -->
         <visual>
-            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.6 0.3 0.1"/>
+                <sphere radius="0.25"/>
             </geometry>
-            <material name="blue"/>
+            <material name="white"/>
         </visual>
         <collision>
-            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
             <geometry>
-                <box size="0.6 0.3 0.1"/>
+                <sphere radius="0.25"/>
             </geometry>
         </collision>
+        
+        <!-- Orange Stripe/Detail -->
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder radius="0.252" length="0.05"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <!-- The "Eye" -->
+        <visual>
+            <origin xyz="0.22 0 0.05" rpy="0 1.57 0"/>
+            <geometry>
+                <cylinder radius="0.08" length="0.05"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <visual>
+            <origin xyz="0.25 0 0.05" rpy="0 1.57 0"/>
+            <geometry>
+                <cylinder radius="0.06" length="0.01"/>
+            </geometry>
+            <material name="blue_glow"/>
+        </visual>
+
         <inertial>
-            <origin xyz="0 0 0.05" rpy="0 0 0"/>
-            <mass value="2.0"/>
-            <inertia ixx="0.0166" ixy="0.0" ixz="0.0" iyy="0.0616" iyz="0.0" izz="0.075"/>
+            <origin xyz="0 0 -0.15" rpy="0 0 0"/>
+            <mass value="5.0"/>
+            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
         </inertial>
     </link>
 
-    <!-- LIDAR -->
+    <!-- LIDAR (Hidden inside or on top? Let's put it on top like a small antenna) -->
     <joint name="laser_joint" type="fixed">
         <parent link="chassis"/>
         <child link="laser_frame"/>
-        <origin xyz="0.1 0 0.1" rpy="0 0 0"/>
+        <origin xyz="0 0 0.26" rpy="0 0 0"/>
     </joint>
 
     <link name="laser_frame">
         <visual>
             <geometry>
-                <cylinder radius="0.05" length="0.04"/>
+                <cylinder radius="0.03" length="0.04"/>
             </geometry>
-            <material name="red">
-                <color rgba="1 0 0 1"/>
-            </material>
+            <material name="black"/>
         </visual>
         <collision>
             <geometry>
-                <cylinder radius="0.05" length="0.04"/>
+                <cylinder radius="0.03" length="0.04"/>
             </geometry>
         </collision>
         <inertial>
@@ -98,90 +126,82 @@
         </sensor>
     </gazebo>
 
-    <!-- FRONT WHEELS (Fixed Casters) -->
-    <xacro:macro name="front_wheel" params="prefix x_reflect y_reflect">
+    <!-- DRIVE WHEELS (Large Side Wheels) -->
+    <xacro:macro name="drive_wheel" params="prefix y_reflect">
         <link name="${prefix}_wheel">
             <visual>
                 <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
                 <geometry>
-                    <cylinder radius="0.05" length="0.04"/>
+                    <cylinder radius="0.12" length="0.05"/>
                 </geometry>
-                <material name="black"/>
+                <material name="orange"/>
             </visual>
             <collision>
                 <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
                 <geometry>
-                    <cylinder radius="0.05" length="0.04"/>
+                    <cylinder radius="0.12" length="0.05"/>
                 </geometry>
             </collision>
             <inertial>
                 <origin xyz="0 0 0" rpy="0 0 0"/>
-                <mass value="0.5"/>
-                <inertia ixx="0.00037" ixy="0.0" ixz="0.0" iyy="0.00037" iyz="0.0" izz="0.000625"/>
-            </inertial>
-        </link>
-
-        <joint name="${prefix}_wheel_joint" type="fixed">
-            <parent link="base_link"/>
-            <child link="${prefix}_wheel"/>
-            <origin xyz="${x_reflect*0.2} ${y_reflect*0.175} 0.05" rpy="0 0 0"/>
-        </joint>
-
-        <gazebo reference="${prefix}_wheel">
-            <mu1>0.001</mu1>
-            <mu2>0.001</mu2>
-        </gazebo>
-    </xacro:macro>
-
-    <!-- REAR WHEELS (Driven) -->
-    <xacro:macro name="rear_wheel" params="prefix x_reflect y_reflect">
-        <link name="${prefix}_wheel">
-            <visual>
-                <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
-                <geometry>
-                    <cylinder radius="0.05" length="0.04"/>
-                </geometry>
-                <material name="black"/>
-            </visual>
-            <collision>
-                <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
-                <geometry>
-                    <cylinder radius="0.05" length="0.04"/>
-                </geometry>
-            </collision>
-            <inertial>
-                <origin xyz="0 0 0" rpy="0 0 0"/>
-                <mass value="0.5"/>
-                <inertia ixx="0.00037" ixy="0.0" ixz="0.0" iyy="0.00037" iyz="0.0" izz="0.000625"/>
+                <mass value="2.0"/>
+                <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
             </inertial>
         </link>
 
         <joint name="${prefix}_wheel_joint" type="continuous">
             <parent link="base_link"/>
             <child link="${prefix}_wheel"/>
-            <origin xyz="${x_reflect*0.2} ${y_reflect*0.175} 0.05" rpy="0 0 0"/>
+            <origin xyz="0 ${y_reflect*0.30} 0.12" rpy="0 0 0"/>
             <axis xyz="0 1 0"/>
         </joint>
 
         <gazebo reference="${prefix}_wheel">
-            <mu1>2.0</mu1>
-            <mu2>2.0</mu2>
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2>
         </gazebo>
     </xacro:macro>
 
-    <!-- Create Wheels -->
-    <xacro:front_wheel prefix="front_left" x_reflect="1" y_reflect="1"/>
-    <xacro:front_wheel prefix="front_right" x_reflect="1" y_reflect="-1"/>
-    <xacro:rear_wheel prefix="rear_left" x_reflect="-1" y_reflect="1"/>
-    <xacro:rear_wheel prefix="rear_right" x_reflect="-1" y_reflect="-1"/>
+    <xacro:drive_wheel prefix="left" y_reflect="1"/>
+    <xacro:drive_wheel prefix="right" y_reflect="-1"/>
 
-    <!-- Gazebo Plugin for Diff Drive (Rear Wheels Only) -->
+    <!-- CASTER WHEEL (Rear Balance) -->
+    <link name="caster_wheel">
+        <visual>
+            <geometry>
+                <sphere radius="0.08"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.08"/>
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="2.0"/>
+            <inertia ixx="0.005" ixy="0" ixz="0" iyy="0.005" iyz="0" izz="0.005"/>
+        </inertial>
+    </link>
+
+    <joint name="caster_wheel_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="caster_wheel"/>
+        <origin xyz="-0.3 0 0.08" rpy="0 0 0"/>
+    </joint>
+    
+    <gazebo reference="caster_wheel">
+        <mu1>0.0</mu1>
+        <mu2>0.0</mu2>
+    </gazebo>
+
+    <!-- Gazebo Plugin for Diff Drive -->
     <gazebo>
         <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
-            <left_joint>rear_left_wheel_joint</left_joint>
-            <right_joint>rear_right_wheel_joint</right_joint>
-            <wheel_separation>0.35</wheel_separation>
-            <wheel_radius>0.05</wheel_radius>
+            <left_joint>left_wheel_joint</left_joint>
+            <right_joint>right_wheel_joint</right_joint>
+            <wheel_separation>0.60</wheel_separation>
+            <wheel_radius>0.12</wheel_radius>
             <odom_publish_frequency>50</odom_publish_frequency>
             <topic>cmd_vel</topic>
             <odom_topic>odom</odom_topic>
@@ -192,15 +212,10 @@
             <covariance_yaw>0.01</covariance_yaw>
         </plugin>
 
-
-
-
-        
-        <!-- Joint State Publisher for Wheel TFs -->
         <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
             <topic>joint_states</topic>
-            <joint_name>rear_left_wheel_joint</joint_name>
-            <joint_name>rear_right_wheel_joint</joint_name>
+            <joint_name>left_wheel_joint</joint_name>
+            <joint_name>right_wheel_joint</joint_name>
         </plugin>
     </gazebo>
 

@@ -1,0 +1,38 @@
+[1.543s] Invoking command in '/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/build --no-deps symlink_data
+[2.141s] running develop
+[2.552s] running egg_info
+[2.552s] creating my_car_bot.egg-info
+[2.590s] writing my_car_bot.egg-info/PKG-INFO
+[2.590s] writing dependency_links to my_car_bot.egg-info/dependency_links.txt
+[2.591s] writing entry points to my_car_bot.egg-info/entry_points.txt
+[2.591s] writing requirements to my_car_bot.egg-info/requires.txt
+[2.591s] writing top-level names to my_car_bot.egg-info/top_level.txt
+[2.592s] writing manifest file 'my_car_bot.egg-info/SOURCES.txt'
+[2.673s] reading manifest file 'my_car_bot.egg-info/SOURCES.txt'
+[2.674s] writing manifest file 'my_car_bot.egg-info/SOURCES.txt'
+[2.716s] running build_ext
+[2.717s] Creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/python3.12/site-packages/my-car-bot.egg-link (link to .)
+[2.717s] Installing cmd_vel_relay script to /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/my_car_bot
+[2.719s] 
+[2.720s] Installed /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot
+[2.720s] running symlink_data
+[2.720s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/ament_index
+[2.720s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/ament_index/resource_index
+[2.721s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/ament_index/resource_index/packages
+[2.721s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/resource/my_car_bot -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/ament_index/resource_index/packages
+[2.721s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/package.xml -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot
+[2.721s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/launch
+[2.721s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/launch/mapping.launch.py -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/launch
+[2.722s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/launch/navigation.launch.py -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/launch
+[2.722s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/launch/sim.launch.py -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/launch
+[2.723s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/urdf
+[2.723s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/urdf/robot.urdf.xacro -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/urdf
+[2.723s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/worlds
+[2.723s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/worlds/road_with_obstacles.sdf -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/worlds
+[2.724s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/config
+[2.724s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/config/mapper_params_online_async.yaml -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/config
+[2.724s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/config/nav2_params.yaml -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/config
+[2.724s] creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/maps
+[2.725s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/maps/my_map.pgm -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/maps
+[2.725s] symbolically linking /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/maps/my_map.yaml -> /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/share/my_car_bot/maps
+[2.768s] Invoked command in '/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/build --no-deps symlink_data

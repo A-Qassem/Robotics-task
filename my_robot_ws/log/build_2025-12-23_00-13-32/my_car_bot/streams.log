@@ -1,0 +1,17 @@
+[1.740s] Invoking command in '/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/build --no-deps symlink_data
+[2.283s] running develop
+[2.630s] running egg_info
+[2.672s] writing my_car_bot.egg-info/PKG-INFO
+[2.672s] writing dependency_links to my_car_bot.egg-info/dependency_links.txt
+[2.672s] writing entry points to my_car_bot.egg-info/entry_points.txt
+[2.672s] writing requirements to my_car_bot.egg-info/requires.txt
+[2.672s] writing top-level names to my_car_bot.egg-info/top_level.txt
+[2.732s] reading manifest file 'my_car_bot.egg-info/SOURCES.txt'
+[2.737s] writing manifest file 'my_car_bot.egg-info/SOURCES.txt'
+[2.774s] running build_ext
+[2.774s] Creating /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/python3.12/site-packages/my-car-bot.egg-link (link to .)
+[2.775s] Installing cmd_vel_relay script to /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/my_car_bot
+[2.775s] 
+[2.775s] Installed /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot
+[2.775s] running symlink_data
+[2.843s] Invoked command in '/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/install/my_car_bot/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/Robotics-task/my_robot_ws/build/my_car_bot/build --no-deps symlink_data

@@ -29,7 +29,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')
         ),
-        launch_arguments={'gz_args': '-r ' + os.path.join(pkg_path, 'worlds', 'road_with_obstacles.sdf')}.items(),
+        launch_arguments={'gz_args': '-r ' + os.path.join(pkg_path, 'worlds', 'future_lab.sdf')}.items(),
     )
 
     # Spawn Entity
