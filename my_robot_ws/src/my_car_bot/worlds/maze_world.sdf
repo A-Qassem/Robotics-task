@@ -1,0 +1,586 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <world name="maze_world">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- Ambient Lighting: Cool Blue/Purple atmosphere -->
+    <light type="directional" name="main_light">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 15 0 0 0</pose>
+      <diffuse>0.7 0.75 0.9 1</diffuse>
+      <specular>0.3 0.3 0.4 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.3 0.2 -0.9</direction>
+    </light>
+    
+    <light type="point" name="ambient_glow">
+      <pose>0 0 8 0 0 0</pose>
+      <diffuse>0.4 0.5 0.7 1</diffuse>
+      <attenuation>
+        <range>30</range>
+      </attenuation>
+    </light>
+
+    <!-- Ground: Dark Teal/Cyan Grid -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>50 50</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>50 50</size>
+            </plane>
+          </geometry>
+          <material>
+            <ambient>0.08 0.15 0.2 1</ambient>
+            <diffuse>0.1 0.2 0.25 1</diffuse>
+            <specular>0.15 0.25 0.3 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- ======================================= -->
+    <!-- OUTER BOUNDARY WALLS (Deep Magenta/Purple) -->
+    <!-- ======================================= -->
+    
+    <!-- Outer Wall - North -->
+    <model name="outer_wall_north">
+      <static>true</static>
+      <pose>0 8 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>16.4 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+            <specular>0.4 0.1 0.3 1</specular>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>16.4 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Outer Wall - South -->
+    <model name="outer_wall_south">
+      <static>true</static>
+      <pose>0 -8 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>16.4 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+            <specular>0.4 0.1 0.3 1</specular>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>16.4 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Outer Wall - East -->
+    <model name="outer_wall_east">
+      <static>true</static>
+      <pose>8 0 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 16.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+            <specular>0.4 0.1 0.3 1</specular>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 16.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Outer Wall - West -->
+    <model name="outer_wall_west">
+      <static>true</static>
+      <pose>-8 0 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 16.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+            <specular>0.4 0.1 0.3 1</specular>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 16.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- ======================================= -->
+    <!-- INNER MAZE WALLS -->
+    <!-- ======================================= -->
+
+    <!-- Horizontal Wall 1 -->
+    <model name="maze_h1">
+      <static>true</static>
+      <pose>-4 6 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Horizontal Wall 2 -->
+    <model name="maze_h2">
+      <static>true</static>
+      <pose>4 6 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>3 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>3 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Vertical Wall 1 -->
+    <model name="maze_v1">
+      <static>true</static>
+      <pose>-6 4 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Vertical Wall 2 -->
+    <model name="maze_v2">
+      <static>true</static>
+      <pose>-3 3 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 6 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 6 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Horizontal Wall 3 (center area) -->
+    <model name="maze_h3">
+      <static>true</static>
+      <pose>0 3 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Vertical Wall 3 (center right) -->
+    <model name="maze_v3">
+      <static>true</static>
+      <pose>3 4 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 5 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 5 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Vertical Wall 4 (far right) -->
+    <model name="maze_v4">
+      <static>true</static>
+      <pose>6 2 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 8 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 8 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Horizontal Wall 4 -->
+    <model name="maze_h4">
+      <static>true</static>
+      <pose>-5 0 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Vertical Wall 5 (center bottom) -->
+    <model name="maze_v5">
+      <static>true</static>
+      <pose>0 -1 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 5 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 5 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Horizontal Wall 5 -->
+    <model name="maze_h5">
+      <static>true</static>
+      <pose>3 -2 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Vertical Wall 6 -->
+    <model name="maze_v6">
+      <static>true</static>
+      <pose>-6 -3 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 5 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 5 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Horizontal Wall 6 (bottom corridor) -->
+    <model name="maze_h6">
+      <static>true</static>
+      <pose>-2 -4 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>5 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>5 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Vertical Wall 7 -->
+    <model name="maze_v7">
+      <static>true</static>
+      <pose>3 -5 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Horizontal Wall 7 -->
+    <model name="maze_h7">
+      <static>true</static>
+      <pose>5 -5 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>3 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>3 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Additional complexity walls -->
+    <model name="maze_h8">
+      <static>true</static>
+      <pose>-3 -6 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>4 0.4 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="maze_v8">
+      <static>true</static>
+      <pose>6 -3 0.6 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.4 3 1.2</size></box></geometry>
+          <material>
+            <ambient>0.6 0.15 0.4 1</ambient>
+            <diffuse>0.7 0.2 0.5 1</diffuse>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><box><size>0.4 3 1.2</size></box></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- ======================================= -->
+    <!-- MARKER SPHERES (Like the white dots in the reference) -->
+    <!-- Using Cyan/Teal glow spheres instead of white -->
+    <!-- ======================================= -->
+
+    <!-- Corner Marker 1 -->
+    <model name="marker_sphere_1">
+      <static>true</static>
+      <pose>-7 7 0.4 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+          <material>
+            <ambient>0.2 0.9 0.9 1</ambient>
+            <diffuse>0.3 1.0 1.0 1</diffuse>
+            <emissive>0.1 0.5 0.5 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Corner Marker 2 -->
+    <model name="marker_sphere_2">
+      <static>true</static>
+      <pose>7 7 0.4 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+          <material>
+            <ambient>0.2 0.9 0.9 1</ambient>
+            <diffuse>0.3 1.0 1.0 1</diffuse>
+            <emissive>0.1 0.5 0.5 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Corner Marker 3 -->
+    <model name="marker_sphere_3">
+      <static>true</static>
+      <pose>-7 -7 0.4 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+          <material>
+            <ambient>0.2 0.9 0.9 1</ambient>
+            <diffuse>0.3 1.0 1.0 1</diffuse>
+            <emissive>0.1 0.5 0.5 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Corner Marker 4 -->
+    <model name="marker_sphere_4">
+      <static>true</static>
+      <pose>7 -7 0.4 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+          <material>
+            <ambient>0.2 0.9 0.9 1</ambient>
+            <diffuse>0.3 1.0 1.0 1</diffuse>
+            <emissive>0.1 0.5 0.5 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.25</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Center Goal Marker (larger, glowing) -->
+    <model name="goal_marker">
+      <static>true</static>
+      <pose>0 0 0.5 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.35</radius></sphere></geometry>
+          <material>
+            <ambient>0.9 0.9 0.2 1</ambient>
+            <diffuse>1.0 1.0 0.3 1</diffuse>
+            <emissive>0.5 0.5 0.1 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.35</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <!-- Additional Junction Markers -->
+    <model name="marker_sphere_5">
+      <static>true</static>
+      <pose>-5 2 0.4 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.2</radius></sphere></geometry>
+          <material>
+            <ambient>0.2 0.9 0.9 1</ambient>
+            <diffuse>0.3 1.0 1.0 1</diffuse>
+            <emissive>0.1 0.5 0.5 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.2</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+
+    <model name="marker_sphere_6">
+      <static>true</static>
+      <pose>5 4 0.4 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><sphere><radius>0.2</radius></sphere></geometry>
+          <material>
+            <ambient>0.2 0.9 0.9 1</ambient>
+            <diffuse>0.3 1.0 1.0 1</diffuse>
+            <emissive>0.1 0.5 0.5 1</emissive>
+          </material>
+        </visual>
+        <collision name="collision">
+          <geometry><sphere><radius>0.2</radius></sphere></geometry>
+        </collision>
+      </link>
+    </model>
+
+  </world>
+</sdf>

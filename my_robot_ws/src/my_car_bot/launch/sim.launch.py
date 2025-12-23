@@ -29,15 +29,17 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')
         ),
-        launch_arguments={'gz_args': '-r ' + os.path.join(pkg_path, 'worlds', 'future_lab.sdf')}.items(),
+        launch_arguments={'gz_args': '-r ' + os.path.join(pkg_path, 'worlds', 'maze_world.sdf')}.items(),
     )
 
-    # Spawn Entity
+    # Spawn Entity (at corner of maze)
     spawn_entity = Node(
         package='ros_gz_sim',
         executable='create',
         arguments=['-topic', 'robot_description',
                    '-entity', 'my_car_bot',
+                   '-x', '-6',
+                   '-y', '-6',
                    '-z', '0.5'],
         output='screen'
     )

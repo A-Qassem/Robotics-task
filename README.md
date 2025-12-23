@@ -23,7 +23,7 @@ sudo apt install -y ros-jazzy-slam-toolbox ros-jazzy-nav2-bringup ros-jazzy-nav2
 ## Build
 
 ```bash
-cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/test/my_robot_ws
+cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/task-for-everyone/Robotics-task/my_robot_ws
 colcon build --symlink-install
 source install/setup.bash
 ```
@@ -35,7 +35,7 @@ source install/setup.bash
 Launch the robot in Gazebo with teleop control:
 
 ```bash
-cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/test/my_robot_ws
+cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/task-for-everyone/Robotics-task/my_robot_ws
 source install/setup.bash
 ros2 launch my_car_bot sim.launch.py
 ```
@@ -54,7 +54,7 @@ ros2 launch my_car_bot sim.launch.py
 Create a map of the environment:
 
 ```bash
-cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/test/my_robot_ws
+cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/task-for-everyone/Robotics-task/my_robot_ws
 source install/setup.bash
 ros2 launch my_car_bot mapping.launch.py
 ```
@@ -67,7 +67,7 @@ ros2 launch my_car_bot mapping.launch.py
 
 **Save the map (new terminal):**
 ```bash
-cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/test/my_robot_ws
+cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/task-for-everyone/Robotics-task/my_robot_ws
 source install/setup.bash
 ros2 run nav2_map_server map_saver_cli -f src/my_car_bot/maps/my_map --ros-args -p use_sim_time:=true
 ```
@@ -80,7 +80,7 @@ Navigate autonomously using the saved map:
 
 ### Step 1: Launch Navigation
 ```bash
-cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/test/my_robot_ws
+cd /media/a-qassem/01DBC69DA6BBEB20/FCIS/ROB/task-for-everyone/Robotics-task/my_robot_ws
 source install/setup.bash
 ros2 launch my_car_bot navigation.launch.py
 ```

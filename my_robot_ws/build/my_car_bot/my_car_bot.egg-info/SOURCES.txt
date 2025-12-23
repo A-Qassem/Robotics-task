@@ -19,5 +19,4 @@ my_car_bot.egg-info/top_level.txt
 my_car_bot.egg-info/zip-safe
 resource/my_car_bot
 urdf/robot.urdf.xacro
-worlds/future_lab.sdf
-worlds/road_with_obstacles.sdf
+worlds/maze_world.sdf
